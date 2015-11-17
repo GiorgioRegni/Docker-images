@@ -6,4 +6,7 @@ RUN apt-get install -y iperf iftop tcpdump  bmon  sysstat telnet vim wget curl s
 
 CMD [ "iperf", "-s" ]
 
+COPY . /root/scripts
+
+
 EXPOSE 5001
