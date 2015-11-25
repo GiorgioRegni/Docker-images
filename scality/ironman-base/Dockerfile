@@ -7,7 +7,7 @@ ENV node=4.2.2
 
 # all the stuff required to access github
 # the branch we want to extract data from
-ENV BRANCH=dev/FT/Base
+ENV BRANCH=master
 #personal github access token - not really needed since the repo is public
 #ENV GITHUB_TOKEN=ef5c25178b3f14db4af295bc7346c6992a176c5e
 # repo owner
