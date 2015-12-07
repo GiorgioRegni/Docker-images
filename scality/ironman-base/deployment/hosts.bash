@@ -1,4 +1,7 @@
 #!/bin/bash
+# fix the hostnames
+for name in $(docker ps --format "{{.Names}}") ; do echo $name ; docker exec -u root $name /sbin/sysctl -w kernel.hostname=$name ; done
+# fix /etc/hosts
 tempfile=/tmp/hosts$RANDOM
 for cid in $(docker ps -q) ; do 
     	name=$(docker inspect ${cid} | grep Name | head -n 1 |  cut -d\/ -f 2 | cut -d\" -f 1);
