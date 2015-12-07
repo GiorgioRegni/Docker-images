@@ -35,7 +35,7 @@ RUN apt-get -qq -y install libzmq1 libzmq-dev
 # Node installation
 ADD http://nodejs.org/dist/v${node}/node-v${node}-linux-x64.tar.gz /
 RUN cd /usr && tar xzf /node-v${node}-linux-x64.tar.gz --strip 1 && rm /node-v${node}-linux-x64.tar.gz
-
+RUN npm -g install npm
 # Configure sudo
 RUN sed -i "s/requiretty/\!requiretty/g" /etc/sudoers
 RUN echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
