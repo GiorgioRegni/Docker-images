@@ -54,7 +54,7 @@ RUN cd /root && curl -O -L https://raw.githubusercontent.com/${OWNER}/${REPO}/${
 RUN cd /root && curl -O -L https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/scality/ironman-base/deployment/hostsd.bash
 
 RUN chmod a+rx /root/hosts.bash  /root/hostsd.bash
-VOLUME ["/var/run"]
+VOLUME ["/run"]
 
 # Create the "ironman" user.
 RUN useradd -ms /bin/bash ironman
