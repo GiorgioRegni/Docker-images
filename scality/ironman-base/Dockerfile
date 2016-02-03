@@ -64,12 +64,17 @@ RUN sudo usermod -aG docker ironman
 RUN easy_install pip 
 RUN pip install --upgrade virtualenv 
 
+# install java
+RUN apt-get update && apt-get install -y -q default-jdk
+
+
 # Docker compose
 RUN curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 RUN chmod a+x /usr/local/bin/docker-compose
 
 # Run as the "ironman" user.
 USER ironman
+
 
 # what do when image starts
 CMD bash
