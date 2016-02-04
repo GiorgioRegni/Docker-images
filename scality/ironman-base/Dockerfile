@@ -67,6 +67,8 @@ RUN pip install --upgrade virtualenv
 # install java
 RUN apt-get update && apt-get install -y -q default-jdk
 
+# install time
+RUN apt-get install -y -q time
 
 # Docker compose
 RUN curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
