@@ -13,6 +13,8 @@ ENV BRANCH=master
 # repo owner
 ENV OWNER=GiorgioRegni
 ENV REPO=Docker-images
+# Make editors happy
+ENV TERM="xterm-256color"
 #############################################
 
 # disable interactive mode
@@ -69,6 +71,9 @@ RUN apt-get update && apt-get install -y -q default-jdk
 
 # install time
 RUN apt-get install -y -q time
+
+# install editors
+RUN apt-get install -y -q vim nano
 
 # Docker compose
 RUN curl -L https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
