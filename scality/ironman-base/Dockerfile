@@ -3,7 +3,7 @@ MAINTAINER Marc "marc.segura@scality.com"
 
 #############################################
 # Node environment
-ENV node=4.2.2
+ENV node=4.4.1
 
 # all the stuff required to access github
 # the branch we want to extract data from
