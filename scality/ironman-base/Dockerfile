@@ -34,6 +34,10 @@ RUN add-apt-repository -y  ppa:bpaquet/zeromq4-trusty
 RUN apt-get -qq -y update  
 RUN apt-get -qq -y install libzmq1 libzmq-dev 
 
+# install performance tools
+RUN apt-get -qq -y install valgrind
+RUN apt-get -qq -y install perf
+
 # Node installation
 ADD http://nodejs.org/dist/v${node}/node-v${node}-linux-x64.tar.gz /
 RUN cd /usr && tar xzf /node-v${node}-linux-x64.tar.gz --strip 1 && rm /node-v${node}-linux-x64.tar.gz
