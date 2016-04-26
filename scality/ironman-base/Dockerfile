@@ -3,7 +3,7 @@ MAINTAINER Marc "marc.segura@scality.com"
 
 #############################################
 # Node environment
-ENV node=4.2.2
+ENV node=4.4.1
 
 # all the stuff required to access github
 # the branch we want to extract data from
@@ -26,13 +26,8 @@ RUN apt-get -qq -y update
 # Software installation
 RUN apt-get -qq -y install build-essential telnet iperf tcpdump atop sysstat  gcc g++ git python-software-properties software-properties-common sudo supervisor python-setuptools python-dev build-essential wget curl default-jre maven
 
-# Add PPAs
-RUN add-apt-repository -y "deb http://ppa.launchpad.net/bpaquet/zeromq4-trusty/ubuntu trusty main"
-RUN add-apt-repository -y  ppa:bpaquet/zeromq4-trusty
-
-# install software from PPAs
-RUN apt-get -qq -y update  
-RUN apt-get -qq -y install libzmq1 libzmq-dev 
+# install performance tools
+RUN apt-get -qq -y install valgrind
 
 # Node installation
 ADD http://nodejs.org/dist/v${node}/node-v${node}-linux-x64.tar.gz /
@@ -81,7 +76,6 @@ RUN chmod a+x /usr/local/bin/docker-compose
 
 # Run as the "ironman" user.
 USER ironman
-
 
 # what do when image starts
 CMD bash
