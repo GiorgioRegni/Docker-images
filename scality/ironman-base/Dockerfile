@@ -28,7 +28,6 @@ RUN apt-get -qq -y install build-essential telnet iperf tcpdump atop sysstat  gc
 
 # install performance tools
 RUN apt-get -qq -y install valgrind
-RUN apt-get -qq -y install perf
 
 # Node installation
 ADD http://nodejs.org/dist/v${node}/node-v${node}-linux-x64.tar.gz /
