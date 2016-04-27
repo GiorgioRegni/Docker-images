@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:trusty
 MAINTAINER Marc "marc.segura@scality.com"
 
 #############################################
@@ -56,6 +56,14 @@ VOLUME ["/var/run"]
 # Create the "ironman" user.
 RUN useradd -ms /bin/bash ironman
 RUN sudo usermod -aG docker ironman
+
+# Add PPAs
+RUN add-apt-repository -y "deb http://ppa.launchpad.net/bpaquet/zeromq4-trusty/ubuntu trusty main"
+RUN add-apt-repository -y  ppa:bpaquet/zeromq4-trusty
+
+# install software from PPAs
+RUN apt-get -qq -y update  
+RUN apt-get -qq -y install libzmq1 libzmq-dev
 
 # pip
 RUN easy_install pip 
