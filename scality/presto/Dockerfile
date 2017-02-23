@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM openjdk:8-jdk
 MAINTAINER Lauren Spiegel <lauren.spiegel@scality.com>
 
 ENV PRESTO_VERSION=0.166
@@ -11,14 +11,14 @@ RUN apt-get -qq -y update
 # Software installation
 RUN apt-get -qq -y install build-essential telnet iperf build-essential wget curl 
 
-# Install java
-RUN apt-get install -y -q default-jdk
-
-# Install presto
-RUN mkdir -p /opt/presto
+# Install presto server
+RUN mkdir -p ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 RUN curl "${PRESTO_URL}/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz" | tar --strip-components=1 -xzv
+
+# Install presto CLI
+RUN curl "${PRESTO_URL}/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar" -o ${WORKDIR}/bin/presto && chmod +x ${WORKDIR}/bin/presto
 
 VOLUME ["/data"]
 
