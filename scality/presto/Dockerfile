@@ -25,5 +25,9 @@ ADD etc ${WORKDIR}/etc
 
 VOLUME ["/data"]
 
+# Smaller image footprint
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Start presto in foreground
 CMD [ "bin/launcher", "run" ]
