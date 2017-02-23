@@ -1,6 +1,10 @@
 FROM ubuntu:trusty
 MAINTAINER Lauren Spiegel <lauren.spiegel@scality.com>
 
+ENV PRESTO_VERSION=0.166
+ENV PRESTO_URL https://repo1.maven.org/maven2/com/facebook/presto/
+ENV WORKDIR /opt/presto
+
 # Update packages.
 RUN apt-get -qq -y update  
 
@@ -12,13 +16,11 @@ RUN apt-get install -y -q default-jdk
 
 # Install presto
 RUN mkdir -p /opt/presto
-WORKDIR /opt/presto
+WORKDIR ${WORKDIR}
 
-RUN curl "https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.166/presto-server-0.166.tar.gz" -o /opt/presto/presto.tar.gz
-
-RUN tar --strip-components=1 -xzf /opt/presto/presto.tar.gz
+RUN curl "${BASE_URL}/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz" | tar --strip-components=1 -xzv
 
 VOLUME ["/data"]
 
-# what do when image starts
-CMD bash
+# Start presto in foreground
+CMD [ "bin/launcher", "run" ]
