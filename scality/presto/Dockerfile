@@ -20,6 +20,9 @@ RUN curl "${PRESTO_URL}/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_V
 # Install presto CLI
 RUN curl "${PRESTO_URL}/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar" -o ${WORKDIR}/bin/presto && chmod +x ${WORKDIR}/bin/presto
 
+# Deploy configuration
+ADD etc ${WORKDIR}/etc
+
 VOLUME ["/data"]
 
 # Start presto in foreground
