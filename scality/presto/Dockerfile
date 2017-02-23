@@ -2,7 +2,7 @@ FROM ubuntu:trusty
 MAINTAINER Lauren Spiegel <lauren.spiegel@scality.com>
 
 ENV PRESTO_VERSION=0.166
-ENV PRESTO_URL https://repo1.maven.org/maven2/com/facebook/presto/
+ENV PRESTO_URL https://repo1.maven.org/maven2/com/facebook/presto
 ENV WORKDIR /opt/presto
 
 # Update packages.
@@ -18,7 +18,7 @@ RUN apt-get install -y -q default-jdk
 RUN mkdir -p /opt/presto
 WORKDIR ${WORKDIR}
 
-RUN curl "${BASE_URL}/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz" | tar --strip-components=1 -xzv
+RUN curl "${PRESTO_URL}/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz" | tar --strip-components=1 -xzv
 
 VOLUME ["/data"]
 
