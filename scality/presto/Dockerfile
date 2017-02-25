@@ -9,7 +9,7 @@ ENV WORKDIR /opt/presto
 RUN apt-get -qq -y update  
 
 # Software installation
-RUN apt-get -qq -y install build-essential telnet iperf build-essential wget curl 
+RUN apt-get -qq -y install build-essential telnet iperf build-essential wget curl less
 
 # Install presto server
 RUN mkdir -p ${WORKDIR}
