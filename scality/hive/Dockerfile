@@ -45,6 +45,9 @@ RUN $HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
 RUN $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
 RUN $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
 
+# Remove extra log jar file to suppress warning (see https://issues.apache.org/jira/browse/HIVE-6162)
+RUN rm $HIVE_HOME/lib/log4j-slf4j-impl-2.4.1.jar
+
 # Install mysql
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y install mysql-server libmysql-java
 
