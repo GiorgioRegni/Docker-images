@@ -28,6 +28,7 @@ ENV PATH=$HADOOP_HOME/bin:$PATH
 
 # Install hive
 ENV HIVE_VERSION=2.1.1
+ENV HIVE_SCHEMA_VERSION=2.1.0
 ENV HIVE_URL=http://apache.cs.utah.edu/hive/
 ENV HIVE_DIR=/opt/hive
 RUN mkdir -p $HIVE_DIR
@@ -44,9 +45,27 @@ RUN $HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
 RUN $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
 RUN $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
 
-# Set up for hive server
-RUN $HIVE_HOME/bin/schematool -dbType derby -initSchema
+# Install mysql
+RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y install mysql-server libmysql-java
+
+# Add mysql jdbc jar to classpath
+RUN ln -s /usr/share/java/mysql-connector-java.jar $HIVE_HOME/lib/mysql-connector-java.jar
+
+# Set hive-site.xml with mysql info
+ADD hive-site.xml.template $HIVE_HOME/conf/hive-site.xml
+
+# Set up mysql
+RUN service mysql start && \
+    mysql -e'CREATE DATABASE metastore;' && \
+    mysql -e'USE metastore;' && \
+    mysql -e"CREATE USER 'hiveuser'@'localhost' IDENTIFIED BY 'hivepassword';" && \
+    mysql -e"GRANT ALL PRIVILEGES ON *.* to 'hiveuser'@'localhost' identified by 'hivepassword';" && \
+    mysql -e'flush privileges;'
+
+
+# Set up schema
+RUN service mysql start && $HIVE_HOME/bin/schematool -dbType mysql -initSchema
 
 # Start hive server
 WORKDIR $HIVE_HOME
-ENTRYPOINT [ "bin/hiveserver2" ]
+ENTRYPOINT service mysql start && bin/hiveserver2
