@@ -68,4 +68,4 @@ RUN service mysql start && $HIVE_HOME/bin/schematool -dbType mysql -initSchema
 
 # Start hive server
 WORKDIR $HIVE_HOME
-ENTRYPOINT service mysql start && bin/hiveserver2
+ENTRYPOINT service mysql start && bin/hive --service metastore
