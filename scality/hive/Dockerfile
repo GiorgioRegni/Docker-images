@@ -69,6 +69,8 @@ RUN service mysql start && \
 # Set up schema
 RUN service mysql start && $HIVE_HOME/bin/schematool -dbType mysql -initSchema
 
+VOLUME /var/lib/mysql
+
 # Start hive server
 WORKDIR $HIVE_HOME
 ENTRYPOINT service mysql start && bin/hive --service metastore
