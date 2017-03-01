@@ -24,6 +24,19 @@ To run the container on Linux:
 docker run --net=host --add-host=localhost.localdomain.localdomain:127.0.0.1 scality/presto
 ```
 
+To set an S3 accessKey/secreteKey pair other than accessKey1 and verySecretKey1,
+add to docker run command:
+
+```
+-e ACCESS_KEY=newAccessKey -e SECRET_KEY=newSecretKey
+```
+
+To set an S3 endpoint other than http://127.0.0.1:8000, add to docker run command:
+
+```
+-e S3_ENDPOINT=newEndpoint
+```
+
 ## Running Presto
 
 Exec into the running container:
