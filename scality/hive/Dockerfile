@@ -69,8 +69,13 @@ RUN service mysql start && \
 # Set up schema
 RUN service mysql start && $HIVE_HOME/bin/schematool -dbType mysql -initSchema
 
+# Add mysql volume
 VOLUME /var/lib/mysql
 
-# Start hive server
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+# Start mysql and hive metastore
 WORKDIR $HIVE_HOME
-ENTRYPOINT service mysql start && bin/hive --service metastore
+ENTRYPOINT ["/entrypoint.sh"]
+CMD service mysql start && bin/hive --service metastore
