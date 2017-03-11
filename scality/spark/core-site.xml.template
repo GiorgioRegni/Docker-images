@@ -1,0 +1,28 @@
+<configuration>
+    <property>
+        <name>fs.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+        <description>The FileSystem for s3a uris.</description>
+    </property>
+
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>accessKey1</value>
+        <description>AWS access key ID. Omit for Role-based authentication.</description>
+    </property>
+
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>verySecretKey1</value>
+        <description>AWS secret key. Omit for Role-based authentication.</description>
+    </property>
+
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>http://127.0.0.1:8000</value>
+        <description>AWS S3 endpoint to connect to. An up-to-date list is
+        provided in the AWS Documentation: regions and endpoints. Without this
+        property, the standard region (s3.amazonaws.com) is assumed.
+        </description>
+    </property>
+</configuration>
