@@ -6,7 +6,7 @@ ENV PRESTO_URL https://repo1.maven.org/maven2/com/facebook/presto
 ENV WORKDIR /opt/presto
 
 # Update packages.
-RUN apt-get -qq -y update  
+RUN apt-get -qq -y update
 
 # Software installation
 RUN apt-get -qq -y install build-essential telnet iperf build-essential wget curl less
@@ -29,5 +29,9 @@ VOLUME ["/data"]
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Start presto in foreground
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+# Run entrypoint script and start presto in foreground
+ENTRYPOINT ["/entrypoint.sh"]
 CMD [ "bin/launcher", "run" ]
