@@ -11,16 +11,16 @@ docker build -t scality/spark .
 ```
 ## Start a container
 
-To run the container:
+To run the container on Mac:
 
 ```
-docker run -it --net=host --add-host=moby:127.0.0.1 scality/spark
+docker run -it --net=host --add-host=moby:127.0.0.1 -p 4040:4040 scality/spark
 ```
 
 To run the container on Linux:
 
 ```
-docker run -it --net=host --add-host=localhost.localdomain.localdomain:127.0.0.1 scality/spark
+docker run -it --net=host --add-host=localhost.localdomain.localdomain:127.0.0.1 -p 4040:4040 scality/spark
 ```
 
 To set an S3 accessKey/secreteKey pair other than accessKey1 and verySecretKey1,
